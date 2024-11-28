@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-
+from django.conf import settings
 # def home(request):
 #  return render(request, 'app/home.html')
 
@@ -203,7 +203,7 @@ def checkout(request):
   shipping_charge=70
  grand_total_amount=total_amount+shipping_charge
  
- return render(request, 'app/checkout.html', {'cart_items': cart_items, 'customer_details': customer_details, 'total_amount': total_amount, 'shipping_charge': shipping_charge, 'grand_total_amount': grand_total_amount})
+ return render(request, 'app/checkout.html', {'cart_items': cart_items, 'customer_details': customer_details, 'total_amount': total_amount, 'shipping_charge': shipping_charge, 'grand_total_amount': grand_total_amount, 'paypal_client_id': settings.PAYPAL_CLIENT_ID})
 
 @login_required(login_url='/accounts/login/')
 def payment_done(request):

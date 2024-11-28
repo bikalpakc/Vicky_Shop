@@ -43,7 +43,6 @@
           <!-- <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Continue</button> -->
           <!-- Set up a container element for the button -->
           <div id="paypal-button-container"></div>
-          <p id="result-message"></p>
         </div>
       </form>
     </div>
@@ -54,7 +53,7 @@
 {% block paypal-integration %}
 <!-- Include the PayPal JavaScript SDK -->
 <script
-  src="https://www.paypal.com/sdk/js?client-id=AWgZh6p00ejv7aG7iG6kNdrDaepnR-ZzW_RDNqCRNmnRJ-eQ8z6ew9QlhxnIlXgkkn8blVvjx3JcLfyf&currency=USD"
+  src="https://www.paypal.com/sdk/js?client-id={{paypal_client_id}}&currency=USD"
   data-sdk-integration-source="developer-studio"></script>
 
 <script>
