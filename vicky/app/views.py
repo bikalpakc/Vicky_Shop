@@ -15,6 +15,7 @@ from django.views.decorators.cache import cache_page
 from django.core.cache import cache
 from .documents import ProductsDocument
 from elasticsearch_dsl.query import MultiMatch
+from .tasks import send_mail_func
 
 CACHE_TTL=getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 # def home(request):
@@ -243,6 +244,7 @@ def payment_done(request):
   order_placed=OrderPlaced(user=user, customer=customer, product=item.product, quantity=item.quantity)
   order_placed.save()
   item.delete()
+ send_mail_func(user) 
  return redirect("orders")
 
 @method_decorator(login_required, name='dispatch')
