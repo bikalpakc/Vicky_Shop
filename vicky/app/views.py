@@ -13,6 +13,8 @@ from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.views.decorators.cache import cache_page
 from django.core.cache import cache
+from .documents import ProductsDocument
+from elasticsearch_dsl.query import MultiMatch
 
 CACHE_TTL=getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 # def home(request):
@@ -34,8 +36,13 @@ class ProductView(View):
        queryset=cache.get(search_content)
 
       else:
-       print("Data from Database")  
-       queryset=queryset.filter(title__icontains=search_content)    #Implementing Normal Search based on recipe name only.
+       print("Data from Database") 
+
+       queryset=queryset.filter(title__icontains=search_content)    #Implementing Normal Django Search based on Product's name only.
+      #  queryset=ProductsDocument.search().query("match", title=search_content).to_queryset()      #Implementing Elastic Search based on Product's title only. "to_queryset()" transforms the result in the form of a queryset.
+       query=MultiMatch(query=search_content, fields=['title', 'description', 'brand', 'category'], fuzziness="AUTO")    #Fuziness makes the products close to search term also discoverable during Search.
+       queryset=ProductsDocument.search().query(query).to_queryset()    #Implementing Elastic search based on Product's title, description, brand and category. "to_queryset()" transforms the result in the form of a queryset.
+       
        cache.set(search_content, queryset)    #This 'search_content' and it's equivalent 'queryset' is now stored in cache side by side as a key value pair.
       return render(request, 'app/search_page.html', {'search_result': queryset, 'no_of_items_in_cart':no_of_items_in_cart}) 
   

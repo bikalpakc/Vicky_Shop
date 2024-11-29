@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_elasticsearch_dsl',  #Elastic Search
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,6 +83,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+ELASTICSEARCH_DSL={
+    'default': {
+        'hosts': 'http://localhost:9200'
     }
 }
 
@@ -148,4 +155,4 @@ SESSION_ENGINE='django.contrib.sessions.backends.db'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'
-PAYPAL_CLIENT_ID=os.environ.get('client-id')
+PAYPAL_CLIENT_ID=os.environ.get('client_id')
