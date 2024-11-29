@@ -1,0 +1,41 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Search{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">Search Results</h2>
+    <div class="list-group">
+        <!-- Sample Order Item Start -->
+
+        <div class="list-group-item mb-3 p-4 border rounded shadow-sm">
+            <div class="row align-items-center">
+                <!-- Product Details -->
+
+                {% if search_result %}
+
+                {% for item in search_result %}
+                <div class="col-md-2">
+                    <img src="{{item.product_image.url}}" alt="Product Image" class="img-fluid rounded">
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'product-detail' item.id %}">
+                        <h5><span class="product-name">{{item.title}}</span></h5>
+                    </a>
+                    <p><span class="product-quantity">{{item.description}}</span></p>
+                    <p><span class="product-price">{{item.discounted_price}}</span></p>
+                </div>
+                <hr class="text-muted">
+                {% endfor %}
+                {% else %}
+                <!-- Message when no results are found -->
+                <div class="col-md-12 text-center">
+                    <p class="text-muted">Nothing matching your search.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock main-content%}

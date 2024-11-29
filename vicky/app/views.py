@@ -10,6 +10,11 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.conf import settings
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
+
+CACHE_TTL=getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 # def home(request):
 #  return render(request, 'app/home.html')
 
@@ -20,7 +25,22 @@ class ProductView(View):
   mobiles= Product.objects.filter(category='M')
   if request.user.is_authenticated:
    no_of_items_in_cart=len(Cart.objects.filter(user=request.user))
+
+  if request.GET.get('search'):
+      queryset=Product.objects.all()
+      search_content=request.GET.get('search')
+      if cache.get(search_content):
+       print("Data from Cache")
+       queryset=cache.get(search_content)
+
+      else:
+       print("Data from Database")  
+       queryset=queryset.filter(title__icontains=search_content)    #Implementing Normal Search based on recipe name only.
+       cache.set(search_content, queryset)    #This 'search_content' and it's equivalent 'queryset' is now stored in cache side by side as a key value pair.
+      return render(request, 'app/search_page.html', {'search_result': queryset, 'no_of_items_in_cart':no_of_items_in_cart}) 
+  
   return render(request, 'app/home.html', {'topwears':topwears, 'bottomwears':bottomwears, 'mobiles':mobiles, 'no_of_items_in_cart':no_of_items_in_cart})
+ 
 
 # def product_detail(request):
 #  return render(request, 'app/productdetail.html')
