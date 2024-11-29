@@ -25,6 +25,7 @@ class ProductView(View):
   topwears= Product.objects.filter(category='TW')
   bottomwears= Product.objects.filter(category='BW')
   mobiles= Product.objects.filter(category='M')
+  no_of_items_in_cart=0
   if request.user.is_authenticated:
    no_of_items_in_cart=len(Cart.objects.filter(user=request.user))
 
