@@ -240,11 +240,14 @@ def payment_done(request):
  customer_id=request.GET.get('customer_id')
  customer=Customer.objects.get(id=customer_id)
  cart=Cart.objects.filter(user=user)
+ ordered_items = []  # Store ordered items here temporarily
  for item in cart:
   order_placed=OrderPlaced(user=user, customer=customer, product=item.product, quantity=item.quantity)
   order_placed.save()
+  ordered_items.append(order_placed)  # Collect ordered items
   item.delete()
- send_mail_func(user) 
+
+ send_mail_func(user, ordered_items) 
  return redirect("orders")
 
 @method_decorator(login_required, name='dispatch')

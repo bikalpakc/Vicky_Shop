@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Complete</title>
+</head>
+
+<body>
+    <h3>Thank you for shopping with us. The payment for your order has been recieved successfully. Order detail is as
+        follows:</h3><br>
+
+    {% for item in ordered_items %}
+    <h4>{{item.product.title}} : {{item.quantity}} pieces </h4><br>
+    {% endfor %}
+
+    <h3>Check the 'Orders' section of the Vicky Eshop website to track your order.</h3>
+</body>
+
+</html>
