@@ -20,6 +20,8 @@
   <!--Custom CSS-->
   <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
 
+  <!-- tawk.to Live Chat  -->
+  <meta name="referrer" content="no-referrer-when-downgrade">
 
   <title>Vicky | {% block title %} {% endblock title %} </title>
 </head>
@@ -129,10 +131,25 @@
     </div>
     </div>
   </nav>
+
   {% block banner_slider %} {% endblock banner_slider %}
   {% block livesale %} {% endblock livesale %}
   {% block main-content %} {% endblock main-content %}
   {% block paypal-integration %} {% endblock paypal-integration %}
+
+  <!--Start of Tawk.to Script (Live Chat Service)-->
+  <script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/674dc5de4304e3196aeb63b3/1ie3spsa0';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
+  <!--End of Tawk.to Script (Live Chat Service)-->
 
   <!-- Start Footer -->
   <footer class="container-fluid bg-dark text-center p-2 mt-5">
