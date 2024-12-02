@@ -86,5 +86,3 @@ $('.remove-from-cart').click(function () {
 })
 
 
-
-

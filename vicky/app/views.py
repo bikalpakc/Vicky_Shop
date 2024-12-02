@@ -16,6 +16,7 @@ from django.core.cache import cache
 from .documents import ProductsDocument
 from elasticsearch_dsl.query import MultiMatch
 from .tasks import send_mail_func
+from notifications_app.models import Notification
 
 CACHE_TTL=getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 # def home(request):
@@ -26,6 +27,7 @@ class ProductView(View):
   topwears= Product.objects.filter(category='TW')
   bottomwears= Product.objects.filter(category='BW')
   mobiles= Product.objects.filter(category='M')
+  all_notifications=Notification.objects.all()
   no_of_items_in_cart=0
   if request.user.is_authenticated:
    no_of_items_in_cart=len(Cart.objects.filter(user=request.user))
@@ -48,7 +50,7 @@ class ProductView(View):
        cache.set(search_content, queryset)    #This 'search_content' and it's equivalent 'queryset' is now stored in cache side by side as a key value pair.
       return render(request, 'app/search_page.html', {'search_result': queryset, 'no_of_items_in_cart':no_of_items_in_cart}) 
   
-  return render(request, 'app/home.html', {'topwears':topwears, 'bottomwears':bottomwears, 'mobiles':mobiles, 'no_of_items_in_cart':no_of_items_in_cart})
+  return render(request, 'app/home.html', {'topwears':topwears, 'bottomwears':bottomwears, 'mobiles':mobiles, 'no_of_items_in_cart':no_of_items_in_cart, 'all_notifications':all_notifications})
  
 
 # def product_detail(request):

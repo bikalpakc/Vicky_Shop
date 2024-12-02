@@ -1,21 +1,72 @@
-.owl-carousel .item{
- /* border: 1px solid black; */
- font-size: 24px;
- text-align: center;
- margin-top: 20px;;
+.owl-carousel .item {
+    /* border: 1px solid black; */
+    font-size: 24px;
+    text-align: center;
+    margin-top: 20px;
+    ;
 }
 
-.owl-next{
- float:right;
+.owl-next {
+    float: right;
 }
-.owl-prev{
- float:left;
+
+.owl-prev {
+    float: left;
 }
-.owl-prev span{
- font-size: 24px;
- font-weight: bold;
+
+.owl-prev span {
+    font-size: 24px;
+    font-weight: bold;
 }
-.owl-next span{
- font-size: 24px;
- font-weight: bold;
+
+.owl-next span {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.notification {
+    background-color: #0d6efd;
+    color: white;
+    text-decoration: none;
+    padding: 4px 24px;
+    margin-right: 20px;
+    margin-left: 20px;
+    position: relative;
+    display: inline-block;
+    border-radius: 2px;
+    font-size: 20px;
+}
+
+.notification:hover {
+    background: #0b5ed7;
+    color: #fff;
+}
+
+.notification .badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 8px 8px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+}
+
+.notification-section .dropdown-toggle::after {
+    content: none;
+}
+
+.dropdown-toggle::after {
+    color: #fff;
+}
+
+#notifications-dropdown li {
+    max-width: 500px;
+    word-wrap: break-word;
+    display: inline-block;
+    white-space: normal;
+}
+
+#notifications-dropdown.dropdown-menu {
+    width: 15rem;
 }
